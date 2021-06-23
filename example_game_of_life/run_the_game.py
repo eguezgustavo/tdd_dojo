@@ -1,7 +1,7 @@
 import sys, time, os
 from game.grid import Grid
 from game.cell import Cell
-from .seeds import *
+from seeds import *
 
 def render_grid(seed):
     grid = Grid(seed)

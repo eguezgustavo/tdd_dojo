@@ -316,4 +316,6 @@ For example:
 python3 run_the_game.py seed_star
 ```
 
-prints:
+Prints:
+
+![pattern](/docs/static/images/pattern.gif)
