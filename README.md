@@ -51,7 +51,7 @@ def test__sum_two_numbers_function__returns_twelve__when_inputs_are_five_and_sev
 **Note:** Double underscore is used between each part.
  
 
-### Parts of a tes:
+### Parts of a test:
 
 To make a test more readable, you can divide your test in:
  - Setup (creating mocks, stubs or the values of the arguments)
@@ -72,7 +72,7 @@ def test__sum_two_numbers_function__returns_twelve__when_inputs_are_five_and_sev
     #Assertions
     assert result == 12
 ```
-**Note:** There is one space between the parts of the test to make reading the test.
+**Note:** There is one space between the parts of the test.
 
 
 ### Happy Path and Sad Path
