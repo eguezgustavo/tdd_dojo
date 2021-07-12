@@ -25,7 +25,7 @@ export class AppComponent{
 
   operations = [
     {value: '1', viewValue: 'sum'},
-    {value: '2', viewValue: 'mul'},
+    {value: '2', viewValue: 'sub'},
     {value: '3', viewValue: 'fac'}
   ]
 
