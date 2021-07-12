@@ -1,3 +1,7 @@
-Flask
 selenium
 pytest
+flask_restx
+pytest-flask
+webdriver_manager
+pytest-httpserver
+pytest-docker
