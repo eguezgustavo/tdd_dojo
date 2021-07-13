@@ -1,4 +1,5 @@
 from flask_restx import Namespace, Resource, fields
+from application.services.calculator import Calculator
 
 api = Namespace('sub', description='Subctract two numbers')
 
@@ -19,4 +20,8 @@ class Sum(Resource):
     @api.doc('do_sum')
     def get(self, number_1, number_2):
         '''Sub operation'''
-        return OPERATIONS
+        calculator = Calculator()
+        result = calculator.sub(number_1, number_2)
+
+        return { "id": 1, "operation": "sub", "number1": number_1, "number2": number_2, "result": result }
+

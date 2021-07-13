@@ -2,12 +2,14 @@ from flask.testing import FlaskClient
 from flask_restx._http import HTTPStatus
 from flask import Flask
 import application
+import json
 
 import pytest
 
 
 @pytest.fixture()
-def app() -> Flask:
+def app(mocker) -> Flask:
+    mocker.patch('application.services.calculator.Calculator.sub', return_value=1)
     return application.create_app("testing")
 
 
@@ -40,14 +42,29 @@ def test__sub_endpoint__should_return_404__when_incorrect_parameters_are_send(cl
 
 
 
-def test__sum_endpoint__should_return_result_json__when_5_and_2_are_send(client: FlaskClient):
+def test__sub_endpoint__should_return_result_json__when_5_and_2_are_send(client: FlaskClient, mocker):
     number_1 = 5
     number_2 = 2
     result = {"id": 1, "operation": "sub", "number1": 5, "number2": 2, "result": 3}
+    mocker.patch('application.services.calculator.Calculator.sub', return_value=3)
 
     response = client.get(
         f'/sub/{number_1}/{number_2}',
     )
 
     assert HTTPStatus.OK == response.status_code
-    assert result == result
+    assert result == json.loads(response.get_data())
+
+
+def test__sub_endpoint__should_return_correct_result__when_7_and_5_are_send(client: FlaskClient, mocker):
+    number_1 = 7
+    number_2 = 5
+    result = {"id": 1, "operation": "sub", "number1": 7, "number2": 5, "result": 2}
+    mocker.patch('application.services.calculator.Calculator.sub', return_value=2)
+
+    response = client.get(
+        f'/sub/{number_1}/{number_2}',
+    )
+
+    assert HTTPStatus.OK == response.status_code
+    assert result == json.loads(response.get_data())
