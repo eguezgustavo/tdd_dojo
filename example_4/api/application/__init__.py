@@ -18,7 +18,11 @@ def create_app(config_name):
 
     app.config.from_object(config_module)
 
-    from .endpoints.operations import api as namespace
+    from .endpoints.sum import api as namespace
+
+    api.add_namespace(namespace)
+
+    from .endpoints.sub import api as namespace
 
     api.add_namespace(namespace)
         
