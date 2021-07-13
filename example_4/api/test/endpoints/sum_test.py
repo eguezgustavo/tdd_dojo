@@ -4,6 +4,7 @@ from flask import Flask
 from application import create_app
 
 import pytest
+import json
 
 
 @pytest.fixture(scope='session')
@@ -37,4 +38,16 @@ def test__sum_endpoint__should_return_404__when_incorrect_parameters_are_send(cl
     )
 
     assert HTTPStatus.NOT_FOUND == response.status_code
- 
+
+
+def test__sum_endpoint__should_return_result_json__when_1_and_2_are_send(client: FlaskClient):
+    number_1 = 1
+    number_2 = 2
+    result = {"id": 1, "operation": "sum", "number1": 1, "number2": 2, "result": 3}
+
+    response = client.get(
+        f'/sum/{number_1}/{number_2}',
+    )
+
+    assert HTTPStatus.OK == response.status_code
+    assert result == json.loads(response.get_data())
