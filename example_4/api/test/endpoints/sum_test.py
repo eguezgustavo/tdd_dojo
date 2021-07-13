@@ -26,3 +26,15 @@ def test__sum_endpoint__should_return_200__when_correct_parameters_are_send(clie
     )
 
     assert HTTPStatus.OK == response.status_code
+
+
+def test__sum_endpoint__should_return_404__when_incorrect_parameters_are_send(client: FlaskClient):
+    number_1 = 'a'
+    number_2 = 'b'
+
+    response = client.get(
+        f'/sum/{number_1}/{number_2}',
+    )
+
+    assert HTTPStatus.NOT_FOUND == response.status_code
+ 
