@@ -37,4 +37,17 @@ def test__sub_endpoint__should_return_404__when_incorrect_parameters_are_send(cl
     )
 
     assert HTTPStatus.NOT_FOUND == response.status_code
- 
+
+
+
+def test__sum_endpoint__should_return_result_json__when_5_and_2_are_send(client: FlaskClient):
+    number_1 = 5
+    number_2 = 2
+    result = {"id": 1, "operation": "sub", "number1": 5, "number2": 2, "result": 3}
+
+    response = client.get(
+        f'/sub/{number_1}/{number_2}',
+    )
+
+    assert HTTPStatus.OK == response.status_code
+    assert result == result
