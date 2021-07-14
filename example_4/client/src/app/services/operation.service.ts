@@ -9,7 +9,9 @@ export class DoOperationService {
   constructor(private http: HttpClient) { }
 
   getResult(operation:string, number1:number, number2:number) : Observable<Result> {
-    const baseUrl = number2 !== undefined ? `${environment.apiUrl}/${operation}/${number1}/${number2}` : `${environment.apiUrl}/${operation}/${number1}`;
+    const baseUrl = operation !== 'fac'
+        ? `${environment.apiUrl}/${operation}/${number1}/${number2}`
+        : `${environment.apiUrl}/${operation}/${number1}`;
 
     return this.http.get<Result>(baseUrl)
   }

@@ -8,4 +8,5 @@ services:
     command: npm start
     ports:
       - "4200:4200"
-      
+    volumes:
+      - ../client/src:/usr/src/app/src 

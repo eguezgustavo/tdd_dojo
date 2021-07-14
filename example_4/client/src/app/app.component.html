@@ -11,7 +11,7 @@
   <!-- Highlight Card -->
   <div class="card-container">
 
-    <select id="endpoint" class="card highlight-card" (change)="changeOption($event)">
+    <select id="action" class="card highlight-card" (change)="changeOption($event)">
       <option   *ngFor="let opt of endpoints" [value]="opt.value">
         {{opt.viewValue}}
         </option>
@@ -55,5 +55,5 @@
 
 <div class="content" role="main">
   Response:
-  <span id="response" class="card card-container">{{response | json}}</span>
+  <span id="response" class="card card-container">{{result | json}}</span>
 </div>

@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { OperationService } from './services/operations.service';
 import { DoOperationService } from './services/operation.service';
 import { GetSavedOperationService } from './services/saved.service';
 
@@ -18,7 +17,6 @@ import { GetSavedOperationService } from './services/saved.service';
     HttpClientModule,
   ],
   providers: [
-    OperationService,
     DoOperationService,
     GetSavedOperationService
   ],
