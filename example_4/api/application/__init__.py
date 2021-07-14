@@ -32,5 +32,9 @@ def create_app(config_name):
     from .endpoints.fac import api as namespace
 
     api.add_namespace(namespace)
+
+    from .endpoints.reports import api as namespace
+
+    api.add_namespace(namespace)
         
     return app
