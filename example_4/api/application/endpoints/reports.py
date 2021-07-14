@@ -10,7 +10,7 @@ operation = api.model('result', {
     'result': fields.Integer(required=True, description='Result'),
 })
 
-@api.route('/<id>')
+@api.route('/<int:id>')
 @api.param('id', 'operation id')
 class Sum(Resource):
     @api.doc('return stored operation')

@@ -27,3 +27,12 @@ def test__reports_endpoint__should_return_200__when_correct_id_is_send(client: F
 
     assert HTTPStatus.OK == response.status_code
 
+
+def test__reports_endpoint__should_return_404__when_incorrect_id_is_send(client: FlaskClient):
+    id = 'a'
+
+    response = client.get(
+        f'/{id}',
+    )
+
+    assert HTTPStatus.NOT_FOUND == response.status_code
