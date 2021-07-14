@@ -37,3 +37,16 @@ def test__fac_endpoint__should_return_404__when_incorrect_parameters_are_send(cl
     )
 
     assert HTTPStatus.NOT_FOUND == response.status_code
+
+
+def test__fac_endpoint__should_return_correct_result__when_3_is_send(client: FlaskClient, mocker):
+    number_1 = 3
+    result = {"id": 1, "operation": "fac", "number1": 3, "number2": None, "result": 6}
+    mocker.patch('application.services.calculator.Calculator.fac', return_value=6)
+
+    response = client.get(
+        f'/fac/{number_1}',
+    )
+
+    assert HTTPStatus.OK == response.status_code
+    assert result == json.loads(response.get_data())

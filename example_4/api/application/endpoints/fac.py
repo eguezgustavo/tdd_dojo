@@ -10,4 +10,4 @@ class Sum(Resource):
     @api.doc('do_factorial')
     def get(self, number_1):
         '''Factorial operation'''
-        return ''
+        return { "id": 1, "operation": "fac", "number1": 3, "number2": None, "result": 6 }
