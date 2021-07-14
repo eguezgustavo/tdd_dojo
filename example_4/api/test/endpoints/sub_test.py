@@ -68,3 +68,17 @@ def test__sub_endpoint__should_return_correct_result__when_7_and_5_are_send(clie
 
     assert HTTPStatus.OK == response.status_code
     assert result == json.loads(response.get_data())
+
+
+def test__sub_endpoint__should_save_the_operation__when_valid_operation_is_send(client: FlaskClient, mocker):
+    number_1 = 7
+    number_2 = 5
+    result = {"id": 1, "operation": "sub", "number1": 7, "number2": 5, "result": 2}
+    mocker.patch('application.services.calculator.Calculator.sub', return_value=2)
+    mocker.patch('application.database.DatabaseORM.save')
+
+    response = client.get(
+        f'/sub/{number_1}/{number_2}',
+    )
+
+    application.database.DatabaseORM.save.assert_called_once_with(result)

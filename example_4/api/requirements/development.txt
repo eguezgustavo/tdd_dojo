@@ -5,3 +5,4 @@ pytest-flask
 webdriver_manager
 pytest-httpserver
 pytest-docker
+pytest-mock

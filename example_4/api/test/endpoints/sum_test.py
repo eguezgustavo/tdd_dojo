@@ -67,3 +67,17 @@ def test__sum_endpoint__should_return_correct_result__when_5_and_7_are_send(clie
 
     assert HTTPStatus.OK == response.status_code
     assert result == json.loads(response.get_data())
+
+
+def test__sum_endpoint__should_save_the_operation__when_valid_operation_is_send(client: FlaskClient, mocker):
+    number_1 = 5
+    number_2 = 7
+    result = {"id": 1, "operation": "sum", "number1": 5, "number2": 7, "result": 12}
+    mocker.patch('application.services.calculator.Calculator.sum', return_value=12)
+    mocker.patch('application.database.DatabaseORM.save')
+
+    response = client.get(
+        f'/sum/{number_1}/{number_2}',
+    )
+
+    application.database.DatabaseORM.save.assert_called_once_with(result)
