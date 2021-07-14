@@ -1,4 +1,5 @@
 from flask_restx import Namespace, Resource, fields
+from ..database import DatabaseORM
 
 api = Namespace('', description='Return an stored operation based on the id')
 
@@ -15,5 +16,7 @@ operation = api.model('result', {
 class Sum(Resource):
     @api.doc('return stored operation')
     def get(self, id):
+        database = DatabaseORM()
+        operation = database.query_by_id(id)
         '''Factorial operation'''
-        return ''
+        return operation
