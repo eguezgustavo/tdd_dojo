@@ -3,7 +3,7 @@ from flask_restx import Namespace, Resource, fields
 api = Namespace('fac', description='Subctract two numbers')
 
 
-@api.route('/<number_1>')
+@api.route('/<int:number_1>')
 @api.param('number_1', 'First number')
 @api.response(404, 'Wrong parameters')
 class Sum(Resource):

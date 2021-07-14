@@ -4,3 +4,6 @@ class Calculator:
 
     def sub():
         pass
+
+    def fac():
+        pass

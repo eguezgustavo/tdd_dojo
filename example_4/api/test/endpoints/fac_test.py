@@ -28,3 +28,12 @@ def test__fac_endpoint__should_return_200__when_correct_parameters_are_send(clie
 
     assert HTTPStatus.OK == response.status_code
 
+
+def test__fac_endpoint__should_return_404__when_incorrect_parameters_are_send(client: FlaskClient):
+    number_1 = 'a'
+
+    response = client.get(
+        f'/fac/{number_1}',
+    )
+
+    assert HTTPStatus.NOT_FOUND == response.status_code
