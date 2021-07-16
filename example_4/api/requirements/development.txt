@@ -6,3 +6,6 @@ webdriver_manager
 pytest-httpserver
 pytest-docker
 pytest-mock
+flask_cors
+flask-sqlalchemy
+psycopg2

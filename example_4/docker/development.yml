@@ -10,3 +10,14 @@ services:
       - "4200:4200"
     volumes:
       - ../client/src:/usr/src/app/src 
+
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=operations
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./database-data:/var/lib/postgresql/data

@@ -1,12 +1,16 @@
-from flask import Flask, jsonify
+from flask import Flask
 from flask_restx import Api
 from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
+import sys
 
 api = Api(
     version=1.0,
     title="Operations API",
     description="API for the Operations project",
 )
+
+db = SQLAlchemy()
 
 
 def create_app(config_name):
@@ -20,6 +24,9 @@ def create_app(config_name):
     config_module = f"application.config.{config_name.capitalize()}Config"
 
     app.config.from_object(config_module)
+
+    db.init_app(app)
+    from application.repository.models import OperationModel
 
     from .endpoints.sum import api as namespace
 
