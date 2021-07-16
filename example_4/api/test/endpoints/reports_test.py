@@ -40,7 +40,8 @@ def test__reports_endpoint__should_return_404__when_incorrect_id_is_send(client:
 
 def test__reports_endpoint__should_query_in_bd__when_id_is_send(client: FlaskClient, mocker):
     mocker.patch(
-        'application.database.DatabaseORM.query_by_id', return_value = {"id": 1, "operation": "fac", "number1": 3, "number2": None, "result": 6}
+        'application.repository.operations_repository.OperationsRepository.query_by_id', 
+        return_value = {"id": 1, "operation": "fac", "number1": 3, "number2": None, "result": 6}
     )
     id = 1
 

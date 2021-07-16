@@ -1,6 +1,6 @@
 from flask_restx import Namespace, Resource, fields
 from flask import jsonify
-from ..database import DatabaseORM
+from application.repository.operations_repository import OperationsRepository
 from application.services.calculator import Calculator
 
 api = Namespace('sum', description='Sum two numbers')
@@ -25,8 +25,8 @@ class Sum(Resource):
         '''Sum operation'''
         calculator = Calculator()
         result = calculator.sum(number_1, number_2)
-        response = { "id": 1, "operation": "sum", "number1": number_1, "number2": number_2, "result": result }
-        database = DatabaseORM()
-        database.save(response)
+        response = { "operation": "sum", "number1": number_1, "number2": number_2, "result": result }
+        database = OperationsRepository()
+        id = database.save(response)
 
-        return response
+        return { "id": id, "operation": "sum", "number1": number_1, "number2": number_2, "result": result }

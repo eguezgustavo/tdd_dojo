@@ -1,10 +1,10 @@
 from flask_restx import Namespace, Resource, fields
-from ..database import DatabaseORM
+from application.repository.operations_repository import OperationsRepository
 
 api = Namespace('', description='Return an stored operation based on the id')
 
 operation = api.model('result', {
-    'id': fields.String(required=True, description='The operation identifier'),
+    'id': fields.Integer(required=True, description='The operation identifier'),
     'operation': fields.String(required=True, description='The operation name'),
     'number_1': fields.Integer(required=True, description='First number'),
     'number_2': fields.Integer(required=True, description='Second number'),
@@ -16,7 +16,7 @@ operation = api.model('result', {
 class Sum(Resource):
     @api.doc('return stored operation')
     def get(self, id):
-        database = DatabaseORM()
+        database = OperationsRepository()
         operation = database.query_by_id(id)
         '''Factorial operation'''
         return operation

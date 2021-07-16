@@ -1,6 +1,6 @@
 from flask_restx import Namespace, Resource, fields
 from application.services.calculator import Calculator
-from ..database import DatabaseORM
+from application.repository.operations_repository import OperationsRepository
 
 api = Namespace('fac', description='Return the factorial of two numbers')
 
@@ -22,8 +22,8 @@ class Fac(Resource):
         '''Factorial operation'''
         calculator = Calculator()
         result = calculator.fac(number_1)
-        response = { "id": 1, "operation": "fac", "number1": number_1, "number2": None, "result": result }
-        database = DatabaseORM()
-        database.save(response)
+        response = { "operation": "fac", "number1": number_1, "number2": None, "result": result }
+        database = OperationsRepository()
+        id = database.save(response)
 
-        return response
+        return { "id": id, "operation": "fac", "number1": number_1, "number2": None, "result": result }

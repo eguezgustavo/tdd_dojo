@@ -1,5 +1,5 @@
 from flask_restx import Namespace, Resource, fields
-from ..database import DatabaseORM
+from application.repository.operations_repository import OperationsRepository
 from application.services.calculator import Calculator
 
 api = Namespace('sub', description='Subctract two numbers')
@@ -23,9 +23,8 @@ class Sub(Resource):
         '''Sub operation'''
         calculator = Calculator()
         result = calculator.sub(number_1, number_2)
-        response = { "id": 1, "operation": "sub", "number1": number_1, "number2": number_2, "result": result }
-        database = DatabaseORM()
-        database.save(response)
+        response = { "operation": "sub", "number1": number_1, "number2": number_2, "result": result }
+        database = OperationsRepository()
+        id = database.save(response)
 
-        return response
-
+        return { "id": id, "operation": "sub", "number1": number_1, "number2": number_2, "result": result }

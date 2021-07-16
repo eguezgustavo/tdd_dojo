@@ -10,6 +10,9 @@ import json
 @pytest.fixture()
 def app(mocker) -> Flask:
     mocker.patch('application.services.calculator.Calculator.fac', return_value=1)
+    mocker.patch(
+        'application.repository.operations_repository.OperationsRepository.save', return_value=1
+    )
     return application.create_app("testing")
 
 
@@ -67,12 +70,12 @@ def test__fac_endpoint__should_return_correct_result__when_4_is_send(client: Fla
 
 def test__fac_endpoint__should_save_the_operation__when_valid_operation_is_send(client: FlaskClient, mocker):
     number_1 = 4
-    result = {"id": 1, "operation": "fac", "number1": 4, "number2": None, "result": 24}
+    result = {"operation": "fac", "number1": 4, "number2": None, "result": 24}
     mocker.patch('application.services.calculator.Calculator.fac', return_value=24)
-    mocker.patch('application.database.DatabaseORM.save')
+    mocker.patch('application.repository.operations_repository.OperationsRepository.save')
 
     response = client.get(
         f'/fac/{number_1}',
     )
 
-    application.database.DatabaseORM.save.assert_called_once_with(result)
+    application.repository.operations_repository.OperationsRepository.save.assert_called_once_with(result)

@@ -10,6 +10,9 @@ import pytest
 @pytest.fixture()
 def app(mocker) -> Flask:
     mocker.patch('application.services.calculator.Calculator.sub', return_value=1)
+    mocker.patch(
+        'application.repository.operations_repository.OperationsRepository.save', return_value=1
+    )    
     return application.create_app("testing")
 
 
@@ -73,12 +76,12 @@ def test__sub_endpoint__should_return_correct_result__when_7_and_5_are_send(clie
 def test__sub_endpoint__should_save_the_operation__when_valid_operation_is_send(client: FlaskClient, mocker):
     number_1 = 7
     number_2 = 5
-    result = {"id": 1, "operation": "sub", "number1": 7, "number2": 5, "result": 2}
+    result = {"operation": "sub", "number1": 7, "number2": 5, "result": 2}
     mocker.patch('application.services.calculator.Calculator.sub', return_value=2)
-    mocker.patch('application.database.DatabaseORM.save')
+    mocker.patch('application.repository.operations_repository.OperationsRepository.save')
 
     response = client.get(
         f'/sub/{number_1}/{number_2}',
     )
 
-    application.database.DatabaseORM.save.assert_called_once_with(result)
+    application.repository.operations_repository.OperationsRepository.save.assert_called_once_with(result)
