@@ -12,7 +12,7 @@ class OperationsRepository:
       db.session.flush()
       db.session.refresh(operation_object)
       db.session.commit()
-      return operation_object.id
+      return operation_object
       
         
     def query_by_id(self, id):
@@ -25,4 +25,4 @@ class OperationsRepository:
             "number2": item.number2,
             "result": item.result,
         } for item in operation]
-      return results
+      return results[0]

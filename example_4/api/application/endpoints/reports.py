@@ -1,7 +1,7 @@
 from flask_restx import Namespace, Resource, fields
 from application.repository.operations_repository import OperationsRepository
 
-api = Namespace('', description='Return an stored operation based on the id')
+api = Namespace('/', description='Return an stored operation based on the id')
 
 operation = api.model('result', {
     'id': fields.Integer(required=True, description='The operation identifier'),

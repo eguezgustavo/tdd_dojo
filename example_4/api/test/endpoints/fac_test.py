@@ -9,7 +9,6 @@ import json
 
 @pytest.fixture()
 def app(mocker) -> Flask:
-    mocker.patch('application.services.calculator.Calculator.fac', return_value=1)
     mocker.patch(
         'application.repository.operations_repository.OperationsRepository.save', return_value=1
     )
@@ -22,7 +21,9 @@ def client(app: Flask) -> FlaskClient:
         return c
         
 
-def test__fac_endpoint__should_return_200__when_correct_parameters_are_send(client: FlaskClient):
+def test__fac_endpoint__should_return_200__when_correct_parameters_are_send(client: FlaskClient, mocker):
+    mocker.patch('application.services.calculator.Calculator.fac', return_value=1)
+
     number_1 = 1
 
     response = client.get(
@@ -45,7 +46,7 @@ def test__fac_endpoint__should_return_404__when_incorrect_parameters_are_send(cl
 def test__fac_endpoint__should_return_correct_result__when_3_is_send(client: FlaskClient, mocker):
     number_1 = 3
     result = {"id": 1, "operation": "fac", "number1": 3, "number2": None, "result": 6}
-    mocker.patch('application.services.calculator.Calculator.fac', return_value=6)
+    mocker.patch('application.services.calculator.Calculator.fac', return_value=result)
 
     response = client.get(
         f'/fac/{number_1}',
@@ -58,7 +59,7 @@ def test__fac_endpoint__should_return_correct_result__when_3_is_send(client: Fla
 def test__fac_endpoint__should_return_correct_result__when_4_is_send(client: FlaskClient, mocker):
     number_1 = 4
     result = {"id": 1, "operation": "fac", "number1": 4, "number2": None, "result": 24}
-    mocker.patch('application.services.calculator.Calculator.fac', return_value=24)
+    mocker.patch('application.services.calculator.Calculator.fac', return_value=result)
 
     response = client.get(
         f'/fac/{number_1}',
@@ -71,11 +72,10 @@ def test__fac_endpoint__should_return_correct_result__when_4_is_send(client: Fla
 def test__fac_endpoint__should_save_the_operation__when_valid_operation_is_send(client: FlaskClient, mocker):
     number_1 = 4
     result = {"operation": "fac", "number1": 4, "number2": None, "result": 24}
-    mocker.patch('application.services.calculator.Calculator.fac', return_value=24)
     mocker.patch('application.repository.operations_repository.OperationsRepository.save')
 
     response = client.get(
         f'/fac/{number_1}',
     )
 
-    application.repository.operations_repository.OperationsRepository.save.assert_called_once_with(result)
+    application.repository.operations_repository.OperationsRepository.save.assert_called_once()

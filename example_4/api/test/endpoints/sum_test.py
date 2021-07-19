@@ -9,7 +9,6 @@ import json
 
 @pytest.fixture()
 def app(mocker) -> Flask:
-    mocker.patch('application.services.calculator.Calculator.sum', return_value=1)
     mocker.patch(
         'application.repository.operations_repository.OperationsRepository.save', return_value=1
     )
@@ -25,7 +24,9 @@ def client(app: Flask) -> FlaskClient:
 @pytest.fixture
         
 
-def test__sum_endpoint__should_return_200__when_correct_parameters_are_send(client: FlaskClient):
+def test__sum_endpoint__should_return_200__when_correct_parameters_are_send(client: FlaskClient, mocker):
+    mocker.patch('application.services.calculator.Calculator.sub', return_value=1)
+
     number_1 = 1
     number_2 = 1
 
@@ -51,7 +52,7 @@ def test__sum_endpoint__should_return_correct_result__when_1_and_2_are_send(clie
     number_1 = 1
     number_2 = 2
     result = {"id": 1, "operation": "sum", "number1": 1, "number2": 2, "result": 3}
-    mocker.patch('application.services.calculator.Calculator.sum', return_value=3)
+    mocker.patch('application.services.calculator.Calculator.sum', return_value=result)
 
 
     response = client.get(
@@ -66,7 +67,7 @@ def test__sum_endpoint__should_return_correct_result__when_5_and_7_are_send(clie
     number_1 = 5
     number_2 = 7
     result = {"id": 1, "operation": "sum", "number1": 5, "number2": 7, "result": 12}
-    mocker.patch('application.services.calculator.Calculator.sum', return_value=12)
+    mocker.patch('application.services.calculator.Calculator.sum', return_value=result)
 
     response = client.get(
         f'/sum/{number_1}/{number_2}',
@@ -80,11 +81,10 @@ def test__sum_endpoint__should_save_the_operation__when_valid_operation_is_send(
     number_1 = 5
     number_2 = 7
     result = {"operation": "sum", "number1": 5, "number2": 7, "result": 12}
-    mocker.patch('application.services.calculator.Calculator.sum', return_value=12)
-    mocker.patch('application.repository.operations_repository.OperationsRepository.save')
+    mocker.patch('application.repository.operations_repository.OperationsRepository.save', return_value=1)
 
     response = client.get(
         f'/sum/{number_1}/{number_2}',
     )
 
-    application.repository.operations_repository.OperationsRepository.save.assert_called_once_with(result)
+    application.repository.operations_repository.OperationsRepository.save.assert_called_once()

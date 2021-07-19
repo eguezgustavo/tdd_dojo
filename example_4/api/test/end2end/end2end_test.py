@@ -5,7 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 import pytest
 
-url = 'http://localhost:4200/'
+url = 'http://docker_ui_1s:4200/'
 
 
 class MainPage:

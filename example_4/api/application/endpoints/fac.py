@@ -1,6 +1,8 @@
 from flask_restx import Namespace, Resource, fields
 from application.services.calculator import Calculator
 from application.repository.operations_repository import OperationsRepository
+from application.services.presenter import OperationResultPersenter
+
 
 api = Namespace('fac', description='Return the factorial of two numbers')
 
@@ -20,10 +22,10 @@ class Fac(Resource):
     @api.marshal_with(operation)
     def get(self, number_1):
         '''Factorial operation'''
-        calculator = Calculator()
-        result = calculator.fac(number_1)
-        response = { "operation": "fac", "number1": number_1, "number2": None, "result": result }
-        database = OperationsRepository()
-        id = database.save(response)
+        repository = OperationsRepository()
+        calculator = Calculator(repository)
+        presenter = OperationResultPersenter()
 
-        return { "id": id, "operation": "fac", "number1": number_1, "number2": None, "result": result }
+        result = calculator.fac(number_1)
+        
+        return presenter.get_json_response(result)
