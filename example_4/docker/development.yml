@@ -21,3 +21,16 @@ services:
       - "5432:5432"
     volumes:
       - ./database-data:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: ../api
+      dockerfile: ./Dockerfile
+    environment:
+      - FLASK_ENV=development
+
+    ports:
+      - "5000:5000"
+    volumes:
+      - ../api/application:/opt/src/application
+      - ../api/test:/opt/src/test
