@@ -10,6 +10,8 @@ RUN pip3.8 install -r /opt/requirements/development.txt --no-cache-dir
     # apk add --no-cache --virtual .build-deps gcc musl-dev postgresql-dev && \
     # pip install -r /opt/requirements/development.txt --no-cache-dir &&\
     # apk --purge del .build-deps
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+RUN apt install ./google-chrome-stable_current_amd64.deb
 COPY . .
 ENV PYTHONPATH=":/opt/src"
 RUN echo $PYTHONPATH

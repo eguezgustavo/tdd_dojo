@@ -26,7 +26,10 @@ def create_app(config_name):
     app.config.from_object(config_module)
 
     db.init_app(app)
-    from application.repository.models import OperationModel
+
+    from application.repository.models import OperationModel, migrate
+
+    migrate.init_app(app, db)
 
     from .endpoints.sum import api as namespace
 

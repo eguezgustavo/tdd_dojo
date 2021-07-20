@@ -3,7 +3,8 @@ help: Makefile
 
 ## up
 up:
-	docker-compose -f docker/development.yml up -d
+	export START_MODE="start"
+	docker-compose -f docker/development.yml up -d api db ui
 
 
 ## down
@@ -18,24 +19,30 @@ stop:
 
 ## test-end2end
 test-end2end:
-	make up ; ./run-test.sh end2end ; make stop
+	docker-compose -f docker/development.yml stop ui
+	export START_MODE="test-e2e"
+	docker-compose -f docker/development.yml up -d ui chrome
+	./run-test.sh end2end
 
 
 ## test-endpoints
 test-endpoints:
-	make up ; ./run-test.sh endpoints ; make stop
+	./run-test.sh endpoints
 
 
 ## test-repository
 test-repository:
-	make up ; ./run-test.sh repository ; make stop
+	./run-test.sh repository
 
 
 ## test-services
 test-services:
-	make up ; ./run-test.sh services ; make stop
+	./run-test.sh services
 
 
 ## test-all
 test-all:
-	make up ; ./run-test.sh all ; make stop
+	docker-compose -f docker/development.yml stop ui
+	export START_MODE="test-e2e"
+	docker-compose -f docker/development.yml up -d ui chrome
+	./run-test.sh all

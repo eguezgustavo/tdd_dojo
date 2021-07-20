@@ -1,5 +1,5 @@
 #!/bin/bash
-END2END_TEST="python3 -m pytest -v test/end2end"
+END2END_TEST="python3 -m pytest -svv test/end2end"
 ENDPOINTS_TEST="python3 -m pytest -v test/endpoints"
 SERVICES_TEST="python3 -m pytest -v test/services"
 REPOSITORY_TEST="python3 -m pytest -v test/repository"

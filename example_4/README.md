@@ -9,16 +9,34 @@ Install docker.
 pip install -r requirements.txt
 ```
 
-## End2end test:
+## Test:
 
-Start the UI:
+Start the containers:
 
 ```sh
-docker-compose up
+make up
 ```
 
 Run the test:
 
 ```sh
-python3 -m pytest -svv
+make test-all
+```
+### End2end test:
+
+Start the containers:
+
+```sh
+make up
+```
+
+Run the test:
+
+```sh
+make test-end2end
+```
+### Stop the containers:
+
+```sh
+make stop
 ```

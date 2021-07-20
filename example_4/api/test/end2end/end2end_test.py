@@ -3,9 +3,12 @@ from selenium.webdriver.support.ui import WebDriverWait, Select
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import pytest
+import json
+from time import sleep
 
-url = 'http://docker_ui_1s:4200/'
+url = 'http://172.18.0.4:4200/'
 
 
 class MainPage:
@@ -34,10 +37,11 @@ class MainPage:
         self.driver.find_element_by_id(id).click()
     
     def __get_text_of_element_by_id(self, element) -> str:
+        sleep(5)
         response = WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located(((By.ID, element)))
         )
-        return response.text
+        return json.loads(response.text)
 
     def set_action(self, action_type: str):
         self.__set_select_by_id('action', action_type)
@@ -62,24 +66,21 @@ class MainPage:
 
 
 @pytest.fixture(scope="session")
-def httpserver_listen_address():
-    return ("localhost", 5000)
-
-
-@pytest.fixture(scope="session")
 def chrome_driver():
     options = webdriver.ChromeOptions()
     options.headless = True
     options.add_argument("--disable-web-security")
-    _chrome_driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+    # _chrome_driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+    _chrome_driver = webdriver.Remote(
+            command_executor='http://docker_chrome_1:4444/wd/hub',
+            desired_capabilities=DesiredCapabilities.CHROME,
+            options=options
+            )
     yield _chrome_driver
     _chrome_driver.quit()
 
 
-def test__app__can_sum_two_numbers_using__web_interface(httpserver, chrome_driver):
-    body = '{ "id": 1, "operation": "sum", "number1": 1, "number2": 1, "result": 2 }'
-    endpoint = "/sum/1/1"
-    httpserver.expect_request(endpoint).respond_with_data(body)
+def test__app__can_sum_two_numbers_using__web_interface(chrome_driver):
 
     page = MainPage(chrome_driver, url)
     page.set_action(MainPage.ACTIONS.OPERATION)
@@ -89,13 +90,10 @@ def test__app__can_sum_two_numbers_using__web_interface(httpserver, chrome_drive
     page.send_request()
     output_str = page.get_response()
 
-    assert output_str == '{ "id": 1, "operation": "sum", "number1": 1, "number2": 1, "result": 2 }'
+    assert output_str["result"] == 2
 
 
-def test__app__can_subctract_two_numbers__using_web_interface(httpserver, chrome_driver):
-    body = '{ "id": 1, "operation": "sub", "number1": 2, "number2": 1, "result": 1 }'
-    endpoint = "/sub/2/1"
-    httpserver.expect_request(endpoint).respond_with_data(body)
+def test__app__can_subctract_two_numbers__using_web_interface(chrome_driver):
 
     page = MainPage(chrome_driver, url)
     page.set_action(MainPage.ACTIONS.OPERATION)
@@ -105,13 +103,10 @@ def test__app__can_subctract_two_numbers__using_web_interface(httpserver, chrome
     page.send_request()
     output_str = page.get_response()
 
-    assert output_str == '{ "id": 1, "operation": "sub", "number1": 2, "number2": 1, "result": 1 }'
+    assert output_str["result"] == 1
 
 
-def test__app__can_return_the_factorial__using_web_interface(httpserver, chrome_driver):
-    body = '{ "id": 1, "operation": "fac", "number1": 3, "number2": null, "result": 6 }'
-    endpoint = "/fac/3"
-    httpserver.expect_request(endpoint).respond_with_data(body)
+def test__app__can_return_the_factorial__using_web_interface(chrome_driver):
 
     page = MainPage(chrome_driver, url)
     page.set_action(MainPage.ACTIONS.OPERATION)
@@ -120,18 +115,14 @@ def test__app__can_return_the_factorial__using_web_interface(httpserver, chrome_
     page.send_request()
     output_str = page.get_response()
 
-    assert output_str == '{ "id": 1, "operation": "fac", "number1": 3, "number2": null, "result": 6 }'
+    assert output_str["result"] == 6
 
 
-def test__app__can_return_stored_operation__using_web_interface(httpserver, chrome_driver):
-    body = '{ "id": 1, "operation": "sub", "number1": 2, "number2": 1, "result": 1 }'
-    endpoint = "/1"
-    httpserver.expect_request(endpoint).respond_with_data(body)
-
+def test__app__can_return_stored_operation__using_web_interface(chrome_driver):
     page = MainPage(chrome_driver, url)
     page.set_action(MainPage.ACTIONS.HISTORY)
     page.set_id(1)
     page.send_request()
     output_str = page.get_response()
 
-    assert output_str == '{ "id": 1, "operation": "sub", "number1": 2, "number2": 1, "result": 1 }'
+    assert output_str["id"] == 1

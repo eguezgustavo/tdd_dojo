@@ -20,7 +20,8 @@ def test__OperationsRepository__saves_on_database__when_element_is_given(app):
     response = { "operation": "sub", "number1": 50, "number2": 1, "result": 49 }
 
     repository = OperationsRepository()
-    id = repository.save(response)
+    saved_element = repository.save(response)
+    id = saved_element.id
     operation = repository.query_by_id(id)
 
-    assert operation[0] == {"id": id, "operation": "sub", "number1": 50, "number2": 1, "result": 49 }
+    assert operation == {"id": id, "operation": "sub", "number1": 50, "number2": 1, "result": 49 }

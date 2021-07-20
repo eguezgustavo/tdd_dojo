@@ -1,8 +1,12 @@
 from sqlalchemy import Column, Integer, String
 from application import db
+from flask_migrate import Migrate
+
+
+migrate = Migrate()
 
 class OperationModel(db.Model):
-    __tablename__ = 'operation'
+    __tablename__ = 'operations'
 
     id = Column(Integer, primary_key=True)
     operation = Column(String())

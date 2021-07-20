@@ -8,4 +8,5 @@ pytest-docker
 pytest-mock
 flask_cors
 flask-sqlalchemy
+flask_migrate
 psycopg2
