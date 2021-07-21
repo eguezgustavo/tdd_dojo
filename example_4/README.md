@@ -46,10 +46,10 @@ make stop
 ```
 ## Exercise 4
 
-In this excersice we are going to build an api to show some concepts of the test pyramid, the api will have similar functions to the applications we build in excersice 1 and 3. It has three endpoints:
+In this excercise we are going to build an api to show some concepts of the test pyramid, the api will have similar functions to the applications we build in excercise 1 and 3. It has three endpoints:
 
 - (/sum/x/x) to return the addition of two numbers.
-- (/sub/x/x) to return the subctraction of two numbers.
+- (/sub/x/x) to return the subtraction of two numbers.
 - (/fac/x) to return the factorial of two numbers.
 
 In addition, all the operations made by the applications are stored in a database, al the api can return the operation and the result using the endpoint ```/<id:int>```, the id is the identifier of the application.
