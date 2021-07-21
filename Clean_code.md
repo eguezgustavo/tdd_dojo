@@ -23,7 +23,7 @@ swdate = datetime.date.today().strftime("%y-%m-%d")
 
 ```
 
-d:
+Good:
 
 ```py
 import datetime
@@ -300,4 +300,5 @@ def parse(tokens: List) -> List:
 Source:
 
 [Clean Code - Uncle Bob](https://www.youtube.com/watch?v=7EmboKQH8lM&t=3608s)
+
 [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript)

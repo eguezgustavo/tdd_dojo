@@ -84,6 +84,7 @@ The recommendation is to have one test class per production class.
 
 #### Example
 
+[Unit test](https://github.com/eguezgustavo/tdd_dojo/tree/Exercise_4/example_3/main_test.py)
 ### Integration Tests
 
 Integration Tests test the integration of your application with all the parts that live outside of your application. For your automated tests this means you don't just need to run your own application but also the component you're integrating with.
@@ -119,10 +120,12 @@ Integration tests are on a higher level than unit tests. They have the advantage
 
 The OperationRepository is the only repository class in the codebase. 
 
-To make it easier for you to run the tests on your machine (without having to install a PostgreSQL database) our test connects to an in-memory H2 database.
+To make it easier for you to run the tests on your machine our test connects to an docker database.
+
 
 #### Example: Integration With Separate Services
 
+[repository_test](https://github.com/eguezgustavo/tdd_dojo/tree/Exercise_4/example_4/api/test/repository)
 
 ### Contract Tests
 
@@ -194,21 +197,11 @@ For end-to-end tests Selenium and the WebDriver protocol are the tool of choice 
 
 Example:
 
-
-
-
-
-
+[end2end_test.py](https://github.com/eguezgustavo/tdd_dojo/tree/Exercise_4/example_4/api/test/end2end/end2end_test.py)
 
 
 **REST API End-to-End Test**
 Avoiding a graphical user interface when testing your application can be a good idea to come up with tests that are less flaky than full end-to-end tests while still covering a broad part of your application's stack. 
-
-Example:
-
-
-
-
 
 ### Acceptance Tests — Do Your Features Work Correctly?
 
