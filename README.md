@@ -106,7 +106,16 @@ git checkout Exercise_2_Solution
 
 ### Workshop 3
 
-In the workshop 3, we are going to create a calculator similar to what we did on Example 1, but with one assumption: There is another team working in a dependency called "calculator" that we need to use. To follow this example, goto [Example](./example_2/README.md).
+In the workshop 3, we are going to create a calculator similar to what we did on Example 1, but with one assumption: There is another team working in a dependency called "calculator" that we need to use. To follow this example, goto [Example](./example_3/README.md).
+
+If you want to check the answer for this dojo, do:
+```
+git checkout Exercise_3_Solution
+```
+
+### Workshop 4
+
+In the workshop 4, we are going to develop an api for the create a calculator similar to what we did on Example 1. To develop this exercise goto [Example](https://github.com/eguezgustavo/tdd_dojo/tree/Exercise_3_Solution/example_3).
 
 If you want to check the answer for this dojo, do:
 ```

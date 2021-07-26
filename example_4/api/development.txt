@@ -1,0 +1,12 @@
+selenium
+pytest
+flask_restx
+pytest-flask
+webdriver_manager
+pytest-httpserver
+pytest-docker
+pytest-mock
+flask_cors
+flask-sqlalchemy
+flask_migrate
+psycopg2

@@ -1,0 +1,59 @@
+
+<!-- Toolbar -->
+<div class="toolbar" role="banner">
+  <div class="card highlight-card card-small">
+    <span>Welcome to the Test Pyramid</span>
+  </div>
+</div>
+
+<div class="content" role="main">
+
+  <!-- Highlight Card -->
+  <div class="card-container">
+
+    <select id="action" class="card highlight-card" (change)="changeOption($event)">
+      <option   *ngFor="let opt of endpoints" [value]="opt.value">
+        {{opt.viewValue}}
+        </option>
+    </select><br />
+
+  </div>
+
+  <!-- Resources -->
+  <div class="card-container" *ngIf="endpointSelected == '1'">
+    <select id="operation" class="card highlight-card" (change)="changeOperation($event)">
+      <option   *ngFor="let opt of operations" [value]="opt.viewValue">
+        {{opt.viewValue}}
+        </option>
+    </select><br />
+  </div>
+
+  <div class="card-container" *ngIf="endpointSelected == '1'">
+    <a class="card-container card">
+      Number_1: <input id="number_1" type="number"[(ngModel)]="number1">
+    </a>
+  </div>
+
+  <div class="card-container" *ngIf="endpointSelected === '1' && operationSelected !== 'fac'">
+    <a class="card-container card">
+      Number_2: <input id="number_2" type="number" [(ngModel)]="number2">
+    </a>
+  </div>
+
+  <div *ngIf="endpointSelected == '2'">
+    <a class="card-container card">
+      id: <input id="id" type="number" [(ngModel)]="id">
+    </a>
+  </div>
+
+  <div class="card-container">
+    <button id="send" class="card highlight-button" (click)="onSendRequest()">Send</button>
+  </div>
+
+
+</div>
+
+<div class="content" role="main">
+  Response:
+  <span id="response" class="card card-container">{{result | json}}</span>
+</div>

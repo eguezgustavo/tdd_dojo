@@ -1,0 +1,70 @@
+version: '3.4'
+
+services:
+  ui:
+    build:
+      context: ../client
+      dockerfile: ./Dockerfile
+    environment:
+      - API_URL=${API_URL}
+    entrypoint:
+      - /bin/sh
+      - ./entrypoint.sh
+    ports:
+      - "4200:4200"
+    volumes:
+      - ../client/src:/usr/src/app/src 
+      - ../client/package.json:/usr/src/app/package.json 
+      - ../client/angular.json:/usr/src/app/angular.json
+      - ../client/entrypoint.sh:/usr/src/app/entrypoint.sh
+    networks:
+      services_net:
+        ipv4_address: 172.18.0.4
+
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=operations
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./database-data:/var/lib/postgresql/data
+    networks:
+      services_net:
+        ipv4_address: 172.18.0.3
+
+  api:
+    build:
+      context: ../api
+      dockerfile: ./Dockerfile
+    environment:
+      - FLASK_ENV=development
+    networks:
+      services_net:
+        ipv4_address: 172.18.0.2
+
+    ports:
+      - "5000:5000"
+    volumes:
+      - ../api/application:/opt/src/application
+      - ../api/test:/opt/src/test
+    command: bash -c "flask run --host 0.0.0.0"
+  
+  chrome:
+    image: selenium/standalone-chrome:4.0.0-rc-1-prerelease-20210713
+    ports:
+      - "4444:4444"
+    shm_size: '2gb'
+    networks:
+      services_net:
+        ipv4_address: 172.18.0.5
+
+  
+networks:
+  services_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.18.0.0/16
