@@ -2,7 +2,7 @@ import os
 
 class Config(object):
     """Base configuration"""
-    SQLALCHEMY_DATABASE_URI = "postgresql://postgres:postgres@docker_db_1:5432/operations"
+    SQLALCHEMY_DATABASE_URI = "postgresql://postgres:postgres@172.18.0.3:5432/operations"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 

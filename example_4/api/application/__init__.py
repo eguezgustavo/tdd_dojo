@@ -1,6 +1,10 @@
 from flask import Flask
-from flask_restx import Api, Resource
+from flask_restx import Api
 from flask_cors import CORS
+
+from .repository.models import db, OperationModel, migrate
+from .endpoints.operations import api as operations_namespace
+from .endpoints.reports import api as reports_namespace
 
 api = Api(
     version=1.0,
@@ -17,9 +21,10 @@ def create_app(config_name):
     config_module = f"application.config.{config_name.capitalize()}Config"
     app.config.from_object(config_module)
 
-    @api.route('/hello')
-    class HelloWorld(Resource):
-        def get(self):
-            return {'hello': 'world'}
+    db.init_app(app)
+    migrate.init_app(app, db)
+
+    api.add_namespace(operations_namespace)
+    api.add_namespace(reports_namespace)
         
     return app
