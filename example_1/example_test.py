@@ -1,6 +1,6 @@
 import pytest
 
-from example_1.example import sum_two_numbers
+from example_1.example import sum_two_numbers, sub_two_numbers
 
 # Happy path
 def test__sum_two_numbers_function__returns_twelve__when_inputs_are_five_and_seven():
@@ -21,3 +21,12 @@ def test__sum_two_numbers_function__returns_error_msg__when_numbers_are_not_a_nu
     actual = sum_two_numbers(number1, number2)
 
     assert actual == expected
+
+# Happy path sub_two_numbers
+def test__sub_two_numbers_function__returns_one__when_inputs_are_six_and_five():
+    number1 = 6
+    number2 = 5
+
+    actual = sub_two_numbers(number1, number2)
+
+    assert actual == 1
