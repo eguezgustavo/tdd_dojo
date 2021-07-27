@@ -1,3 +1,5 @@
+import sys
+
 def sum_two_numbers(number_1, number_2):
     if is_number(number_1) and is_number(number_2):
         return number_1 + number_2
@@ -30,3 +32,14 @@ def is_number(value):
         return True
     except ValueError:
          return False
+
+def eval_result(arguments):
+    if len(arguments) == 4:
+        result = eval(arguments[1] + f'({arguments[2]}, {arguments[3]})')
+    if len(arguments) == 3:
+        result = eval(arguments[1] + f'({arguments[2]})')    
+    return result
+
+
+if __name__ == "__main__":
+    print(eval_result(sys.argv)) 

@@ -1,6 +1,6 @@
 import pytest
 
-from example_1.example import fac, sum_two_numbers, sub_two_numbers
+from example_1.example import fac, eval_result, sum_two_numbers, sub_two_numbers
 
 # Happy path
 def test__sum_two_numbers_function__returns_twelve__when_inputs_are_five_and_seven():
@@ -65,5 +65,30 @@ def test__fac_function__returns_error_msg__when_input_is_not_a_number():
     expected = 'Values must be a numbers'
 
     actual = fac(number)
+
+    assert actual == expected
+
+# Happy path 
+def test__eval_result_function__returns_error_msg__when_sub_two_numbers_is_passed_with_five_and_seven():
+    arguments = ['example.py','sub_two_numbers','5','7']
+    expected = 'This app can only produce positive results'
+    
+    actual = eval_result(arguments)
+
+    assert actual == expected
+
+def test__eval_result_function__returns_twelve__when_sum_two_numbers_is_passed_with_five_and_seven():
+    arguments = ['example.py','sum_two_numbers','5','7']
+    expected = 12
+    
+    actual = eval_result(arguments)
+
+    assert actual == expected
+
+def test__eval_result_function__returns_six__when_fac_is_passed_with_tree():
+    arguments = ['example.py','fac','3']
+    expected = 6
+    
+    actual = eval_result(arguments)
 
     assert actual == expected
