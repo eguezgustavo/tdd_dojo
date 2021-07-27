@@ -30,3 +30,13 @@ def test__sub_two_numbers_function__returns_one__when_inputs_are_six_and_five():
     actual = sub_two_numbers(number1, number2)
 
     assert actual == 1
+
+# Sad path sub_two_numbers
+def test__sum_two_numbers_function__returns_error_msg__when_inputs_are_five_and_seven():
+    number1 = 5
+    number2 = 7
+    expected = 'This app can only produce positive results'
+
+    actual = sub_two_numbers(number1, number2)
+
+    assert actual == expected
