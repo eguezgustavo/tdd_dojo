@@ -1,6 +1,6 @@
 import pytest
 
-from example_1.example import sum_two_numbers, sub_two_numbers
+from example_1.example import fac, sum_two_numbers, sub_two_numbers
 
 # Happy path
 def test__sum_two_numbers_function__returns_twelve__when_inputs_are_five_and_seven():
@@ -50,3 +50,11 @@ def test__sub_two_numbers_function__returns_error_msg__when_values_are_not_a_num
     actual = sub_two_numbers(number1, number2)
 
     assert actual == expected
+
+# Happy path fac
+def test__fac_function__returns_six__when_input_is_tree():
+    number = 3
+
+    actual = fac(number)
+
+    assert actual == 6

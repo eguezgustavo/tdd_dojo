@@ -16,6 +16,12 @@ def sub_two_numbers(number_1, number_2):
     return 'Values must be a numbers'
 
 
+def fac(number):
+    if number > 1: 
+        return number * fac(number - 1)
+    return 1
+
+
 def is_number(value):
     try:
         int(value)
