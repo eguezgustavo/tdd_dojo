@@ -58,3 +58,12 @@ def test__fac_function__returns_six__when_input_is_tree():
     actual = fac(number)
 
     assert actual == 6
+
+# Sad path fac
+def test__fac_function__returns_error_msg__when_input_is_not_a_number():
+    number = 'not_a_number'
+    expected = 'Values must be a numbers'
+
+    actual = fac(number)
+
+    assert actual == expected

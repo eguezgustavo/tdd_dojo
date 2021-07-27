@@ -17,9 +17,11 @@ def sub_two_numbers(number_1, number_2):
 
 
 def fac(number):
-    if number > 1: 
-        return number * fac(number - 1)
-    return 1
+    if is_number(number):
+        if number > 1: 
+            return number * fac(number - 1)
+        return 1
+    return 'Values must be a numbers'
 
 
 def is_number(value):
