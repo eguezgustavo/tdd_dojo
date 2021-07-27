@@ -16,7 +16,7 @@ def test__sum_two_numbers_function__returns_twelve__when_inputs_are_five_and_sev
     ('fail', 1, 'Values must be a numbers'),
     (1, 'fail', 'Values must be a numbers'),
 ))
-def test__sum_two_numbers_function__returns_error_msg__when_numbers_are_not_a_number(number1, number2, expected):
+def test__sum_two_numbers_function__returns_error_msg__when_values_are_not_a_number(number1, number2, expected):
 
     actual = sum_two_numbers(number1, number2)
 
@@ -36,6 +36,16 @@ def test__sum_two_numbers_function__returns_error_msg__when_inputs_are_five_and_
     number1 = 5
     number2 = 7
     expected = 'This app can only produce positive results'
+
+    actual = sub_two_numbers(number1, number2)
+
+    assert actual == expected
+
+@pytest.mark.parametrize("number1,number2,expected", (
+    ('fail', 1, 'Values must be a numbers'),
+    (1, 'fail', 'Values must be a numbers'),
+))
+def test__sub_two_numbers_function__returns_error_msg__when_values_are_not_a_number(number1, number2, expected):
 
     actual = sub_two_numbers(number1, number2)
 
