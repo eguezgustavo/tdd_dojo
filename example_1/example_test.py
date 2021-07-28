@@ -92,3 +92,12 @@ def test__eval_result_function__returns_six__when_fac_is_passed_with_tree():
     actual = eval_result(arguments)
 
     assert actual == expected
+
+# Sad path 
+def test__eval_result_function__returns_error_msg__when_parameters_passed_are_not_correct():
+    arguments = ['example.py','function','3']
+    expected = 'Parameters are not correct'
+    
+    actual = eval_result(arguments)
+
+    assert actual == expected

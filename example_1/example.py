@@ -34,11 +34,14 @@ def is_number(value):
          return False
 
 def eval_result(arguments):
-    if len(arguments) == 4:
-        result = eval(arguments[1] + f'({arguments[2]}, {arguments[3]})')
-    if len(arguments) == 3:
-        result = eval(arguments[1] + f'({arguments[2]})')    
-    return result
+    try: 
+        if len(arguments) == 4:
+            result = eval(arguments[1] + f'({arguments[2]}, {arguments[3]})')
+        if len(arguments) == 3:
+            result = eval(arguments[1] + f'({arguments[2]})')    
+        return result
+    except:
+        return "Parameters are not correct" 
 
 
 if __name__ == "__main__":
