@@ -4,19 +4,22 @@ Welcome to tdd_dojo, this repository shows concepts and exercises related to TDD
 
 ## Project Setup
 
-### Install Python
+### Install Environment
 
-Before starting, make sure you have installed [Python](https://www.python.org/downloads/). In this tutorial, Python 3.8 is used.
-
-### Setting up virtual environment
-
-It is a good practice to isolate the project that we are working on from the rest of the system. You can use [venv](https://realpython.com/python-virtual-environments-a-primer/) or [pyenv](https://amaral.northwestern.edu/resources/guides/pyenv-tutorial)
-
-### Install Pytest
-
-For testing we're going to use [pytest](pytest.org) as a testing framework. so you can install this tool with:
 ```
-pip install -r requirements.txt
+make install
+```
+
+### Uninstall Environment
+
+```
+make uninstall
+```
+
+### Open environment terminal
+
+```
+make shell
 ```
 
 ## Testing
@@ -106,7 +109,7 @@ git checkout Exercise_2_Solution
 
 ### Workshop 3
 
-In the workshop 3, we are going to create a calculator similar to what we did on Example 1, but with one assumption: There is another team working in a dependency called "calculator" that we need to use. To follow this example, goto [Example](./example_2/README.md).
+In the workshop 3, we are going to create a calculator similar to what we did on Example 1, but with one assumption: There is another team working in a dependency called "calculator" that we need to use. To follow this example, goto [Example](./example_3/README.md).
 
 If you want to check the answer for this dojo, do:
 ```

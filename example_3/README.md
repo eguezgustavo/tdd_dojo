@@ -1,8 +1,11 @@
 # TDD Exercise 3
 
 In this example we are going to create a calculator similar to what we did on Example 1, but with one assumption:
-There is another team working in a dependency call ```calculator```, since we don't have control of this code, we cannot make changes on it, the only thing we know
-about it is that it has two methods ```calculator.sum``` which returns the sum of two numbers passed and ```calculator.mul``` which returns the multiplication of two numbers. In this exercise, we have to implement a class to fulfill the requirements but now that we depend on the code of the other team, using Dependency Injection is a good idea.
+There is another team working in a dependency called ```calculator```, since we don't have control of this code, we cannot make changes on it, these are the things we know:
+- Calculator has a method named ```calculator.sum``` which returns the sum of two numbers passed
+- Calculator has a method named ```calculator.mul``` which returns the multiplication of two numbers
+
+  In this exercise, we have to implement a class to fulfill the requirements but now that we depend on the code of the other team, using Dependency Injection is a good idea.
 
 ## Dependency Injection
 
