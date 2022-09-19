@@ -8,4 +8,4 @@ uninstall:
 
 .PHONY: shell
 shell:
-	docker run --rm -it -v $(PWD):/app tdd_dojo zsh
+	docker run --rm -it -v $(PWD):/app -v ~/.ssh:/root/.ssh tdd_dojo zsh
