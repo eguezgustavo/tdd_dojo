@@ -7,4 +7,6 @@ RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/
 
 RUN pip install ipython pytest pytest-mock
 
+WORKDIR /app
+
 CMD ["tail", "-f", "/dev/null"]
