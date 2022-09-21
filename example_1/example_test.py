@@ -34,3 +34,13 @@ def test__add__raises_an_error_when_the_first_number_is_negative():
     with pytest.raises(ValueError) as error:
         calculator.add(first_number, second_number)
     assert str(error.value) == "First number shouldn't be negative"
+    
+def test__add__raises_an_error_when_the_second_number_is_negative():
+    first_number = random.randint(1, 9)
+    second_number = -random.randint(1, 9)
+
+    calculator = Calculator()
+
+    with pytest.raises(ValueError) as error:
+        calculator.add(first_number, second_number)
+    assert str(error.value) == "Second number shouldn't be negative"
