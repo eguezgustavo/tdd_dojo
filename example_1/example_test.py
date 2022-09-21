@@ -57,6 +57,6 @@ def test_add_raises_an_error__when_the_parameters_are_not_integers(
 ):
     calculator = Calculator()
 
-    with pytest.raises(ValueError) as error:
+    with pytest.raises(TypeError) as error:
         calculator.add(first_number, second_number)
     assert str(error.value) == "Input shouldn be numbers"
