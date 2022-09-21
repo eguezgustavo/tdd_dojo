@@ -25,22 +25,38 @@ def test__add__returns_the_same_number_if_it_is_summed_with_zero():
 
     assert result == second_number
 
-def test__add__raises_an_error_when_the_first_number_is_negative():
-    first_number = -random.randint(1, 9)
-    second_number = random.randint(1, 9)
-
+@pytest.mark.parametrize(
+    "first_number, second_number",
+    [
+        (-1, 1),
+        (1, -1),
+    ]
+)
+def test__add__raises_an_error_when_the_first_number_is_negative(
+    first_number,
+    second_number,
+):
     calculator = Calculator()
 
     with pytest.raises(ValueError) as error:
         calculator.add(first_number, second_number)
-    assert str(error.value) == "First number shouldn't be negative"
-    
-def test__add__raises_an_error_when_the_second_number_is_negative():
-    first_number = random.randint(1, 9)
-    second_number = -random.randint(1, 9)
+    assert str(error.value) == "A number shouldn't be negative"
 
+
+@pytest.mark.parametrize(
+    "first_number, second_number",
+    [
+        ("abc", 1),
+        ([], -1),
+        (1, ()),
+    ]
+)
+def test_add_raises_an_error__when_the_parameters_are_not_integers(
+    first_number,
+    second_number,
+):
     calculator = Calculator()
 
     with pytest.raises(ValueError) as error:
         calculator.add(first_number, second_number)
-    assert str(error.value) == "Second number shouldn't be negative"
+    assert str(error.value) == "Input shouldn be numbers"
