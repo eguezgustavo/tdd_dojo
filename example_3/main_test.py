@@ -1,4 +1,6 @@
 # (a+b)*(a*b)
+from example_3.main import weird_operation
+
 def test__weird_operation__returns_6__when_give_2_and_1_and_sum_service_returns_3_and_multiple_service_return_2(mocker):
     # arrange
     number_a = 2
